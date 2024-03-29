@@ -5,8 +5,8 @@ let constraints = {
     audio: true
 }
 
-
+// navigator -> global, browser info
 navigator.mediaDevices.getUserMedia(constraints)
 .then((stream) => {
-
+   video.srcObject = stream;
 })

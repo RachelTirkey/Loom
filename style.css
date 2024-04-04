@@ -111,7 +111,7 @@ video {
 
 .filter {
   height: 4rem;
-  background-image: url(background_img.jpg);
+  background-image: url("https://picsum.photos/seed/picsum/200/300");
   background-position: center;
   background-size: 100% 100%;
   background-repeat: no-repeat;

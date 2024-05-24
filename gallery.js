@@ -39,7 +39,7 @@ setTimeout (() => {
 
        // images retrieval
 
-       let imageDBTransaction = db.transaction("image", "readonly");
+      let imageDBTransaction = db.transaction("image", "readonly");
       let imageStore = imageDBTransaction.objectStore("image");
       let imageRequest = imageStore.getAll(); // Event driven
       imageRequest.onsuccess = (e) => {
@@ -76,3 +76,60 @@ setTimeout (() => {
     
 
 }, 100)
+
+
+// UI remove, DB remove
+
+function deleteListener (e) {
+  // DB removal
+
+  let id = e.target.parentElement.getAttribute("id");
+  let type = id.slice(0, 3);
+    if (type === "vid"){
+      let videoDBTransaction = db.transaction("video", "readwrite");
+      let videoStore = videoDBTransaction.objectStore("video");
+        videoStore.delete(id);
+    }
+      else if(type === "img"){
+        let imageDBTransaction = db.transaction("image", "readwrite");
+        let imageStore = imageDBTransaction.objectStore("image");
+          imageStore.delete(id);
+      }
+
+      // UI removal
+      e.target.parentElement.remove();
+}
+
+
+function downloadListener (e) {
+  let id = e.target.parentElement.getAttribute("id");
+  let type = id.slice(0, 3);
+  if (type === "vid"){
+    let videoDBTransaction = db.transaction("video", "readwrite");
+    let videoStore = videoDBTransaction.objectStore("video");
+    let videoRequest = videoStore.get(id);
+    videoRequest.onsuccess = (e) => {
+      let videoResult = videoRequest.result;
+
+      let videoURL = URL.createObjectURL(videoResult.blobData);
+
+            let a = document.createElement("a");
+            a.href = videoURL;
+            a.download = "stream.mp4";
+            a.click();
+    }
+  }
+  else if(type === "img"){
+    let imageDBTransaction = db.transaction("image", "readwrite");
+    let imageStore = imageDBTransaction.objectStore("image");
+    let imageRequest = imageStore.get(id);
+    imageRequest.onsuccess = (e) => {
+      let imageResult = imageRequest.result;
+
+            let a = document.createElement("a");
+            a.href = imageResult.url;
+            a.download = "image.jpg";
+            a.click();
+    }
+  }
+}

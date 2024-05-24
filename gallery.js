@@ -27,6 +27,13 @@ setTimeout (() => {
           `;
 
           galleryCont.appendChild(mediaElem);
+
+          // Listeners
+          let deleteBtn = mediaElem.querySelector(".delete");
+          deleteBtn.addEventListener("click", deleteListener);
+
+          let downloadBtn = mediaElem.querySelector(".download");
+          downloadBtn.addEventListener("click", downloadListener);
         })
       }
 
@@ -54,6 +61,13 @@ setTimeout (() => {
           `;
 
           galleryCont.appendChild(mediaElem);
+
+          // Listeners
+          let deleteBtn = mediaElem.querySelector(".delete");
+          deleteBtn.addEventListener("click", deleteListener);
+
+          let downloadBtn = mediaElem.querySelector(".download");
+          downloadBtn.addEventListener("click", downloadListener);
         })
       }
 
